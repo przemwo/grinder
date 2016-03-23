@@ -29,7 +29,6 @@
     "firebase": "^2.4.1",
     "lodash": "^4.6.1",
     "morphdom": "^1.1.2",
-    "store-emitter": "^2.1.0",
-    "tmp": "0.0.28"
+    "store-emitter": "^2.1.0"
   }
 }

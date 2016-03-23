@@ -23,12 +23,10 @@ function grind(){
           return {id: item.id};
         });
         if(_.isEqual(itemIds, newCoffeeTypesOrderIds)) {
-          console.log(item, newCoffeeTypesOrder);
           newOrder = false;
         }
       });
     } while(!newOrder);
-    console.log('FINISH');
     //Save shuffle order to firebase
     data.addShuffleItem(newCoffeeTypesOrder);
     store({

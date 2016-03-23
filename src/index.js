@@ -2,6 +2,7 @@ import store from './store';
 import grinderContainer from './components/grinderContainer';
 import update from './common/update';
 import data from './common/data';
+import style from './css/style.css';
 
 const grinderContainerDOM = grinderContainer({action: null});
 

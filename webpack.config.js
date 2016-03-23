@@ -33,6 +33,10 @@ const common = {
         test: /\.js$/,
         loaders: ['babel?cacheDirectory'],
         include: PATHS.src
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: 'url?limit=25000'
       }
     ]
   }

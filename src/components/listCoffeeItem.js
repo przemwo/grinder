@@ -53,7 +53,7 @@ export default function(coffee) {
 
 function listItem(coffee) {
   return bel`
-    <li class="list-group-item">
+    <li class="list-group-item list-item">
         <div
           style="cursor: pointer"
           ondblclick=${function(e){
@@ -69,14 +69,14 @@ function listItem(coffee) {
             removeCoffee(coffee);
           }}
         >
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
         </a>
     </li>`;
 }
 
 function editListItem(coffee) {
   return bel`
-    <li class="list-group-item">
+    <li class="list-group-item list-item">
       <input
         type="text"
         value="${coffee.name}"

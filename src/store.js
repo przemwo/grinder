@@ -7,7 +7,8 @@ import data from './common/data';
 const initialState = {
   coffeeTypes: [],
   newCofeeType: null,
-  shuffleArch: []
+  shuffleArch: [],
+  isLoading: true
 };
 
 function modifier(action, state) {
@@ -52,6 +53,7 @@ function modifier(action, state) {
       items[item].id = item;
       state.coffeeTypes.push(items[item]);
     }
+    state.isLoading = false;
     return state;
 
   } else if(action.type === 'dataShuffle:getAll') {

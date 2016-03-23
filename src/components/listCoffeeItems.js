@@ -5,10 +5,15 @@ import listCoffeeItem from './listCoffeeItem';
 export default function() {
   const coffeeTypes = store.getState().coffeeTypes;
   return bel`
-    <ul class="list-group">
-      ${coffeeTypes.map(function(coffee){
-        return bel`${listCoffeeItem(coffee)}`;
-      })}
-    </ul>
+    <div>
+      ${(store.getState().isLoading)
+        ? bel`<div class="spinner"></div>`
+        : ''}
+      <ul class="list-group list-items">
+        ${coffeeTypes.map(function(coffee){
+          return bel`${listCoffeeItem(coffee)}`;
+        })}
+      </ul>
+    </div>
   `;
 }

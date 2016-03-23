@@ -60,6 +60,6 @@ if(TARGET === 'start' || !TARGET) {
   });
 }
 
-if(TARGET === 'dist') {
+if(TARGET === 'build') {
   module.exports = merge(common, {});
 }

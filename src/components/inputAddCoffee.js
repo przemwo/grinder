@@ -39,7 +39,7 @@ export default function() {
       type="text"
       class="form-control"
       id="js-addNewCoffyBtn"
-      pattern="^[a-zA-Z0-9][a-zA-Z0-9- _\.]{1,199}$"
+      pattern="^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9][a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9- _\.]{1,199}$"
       oninput=${function(e){
         newCoffeeTypeNameInput(e.target.value.trim());
       }}

@@ -16001,10 +16001,12 @@
 	_store2.default.on('newCoffeeType:add', function (action, state, oldState) {
 	  (0, _update2.default)(inputAddCoffeeDOM, (0, _inputAddCoffee2.default)());
 	  (0, _update2.default)(listCoffeeItemsDOM, (0, _listCoffeeItems2.default)());
+	  (0, _update2.default)(btnGrindDOM, (0, _btnGrind2.default)());
 	});
 
 	_store2.default.on('coffeeTypes:remove', function (action, state, oldState) {
 	  (0, _update2.default)(listCoffeeItemsDOM, (0, _listCoffeeItems2.default)());
+	  (0, _update2.default)(btnGrindDOM, (0, _btnGrind2.default)());
 	});
 
 	_store2.default.on('shuffle', function (action, state, oldState) {
@@ -16013,6 +16015,7 @@
 
 	_store2.default.on('data:getAll', function (action, state, oldState) {
 	  (0, _update2.default)(listCoffeeItemsDOM, (0, _listCoffeeItems2.default)());
+	  (0, _update2.default)(btnGrindDOM, (0, _btnGrind2.default)());
 	});
 
 /***/ },
@@ -16119,10 +16122,6 @@
 	      }
 
 	      if (typeof node === 'string') {
-	        if (el.lastChild && el.lastChild.nodeName === '#text') {
-	          el.lastChild.nodeValue += node
-	          continue
-	        }
 	        node = document.createTextNode(node)
 	      }
 
@@ -17007,7 +17006,7 @@
 	  value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['\n  <div class="input-group">\n    <input\n      type="text"\n      class="form-control"\n      id="js-addNewCoffyBtn"\n      pattern="^[a-zA-Z0-9][a-zA-Z0-9- _.]{1,199}$"\n      oninput=', '\n      onkeydown=', '\n    >\n    <div class="input-group-btn">\n      <a\n        href="#"\n        class="btn btn-default"\n        onclick=', '\n      >\n        Dodaj\n      </a>\n    </div>\n  </div>'], ['\n  <div class="input-group">\n    <input\n      type="text"\n      class="form-control"\n      id="js-addNewCoffyBtn"\n      pattern="^[a-zA-Z0-9][a-zA-Z0-9- _\\.]{1,199}$"\n      oninput=', '\n      onkeydown=', '\n    >\n    <div class="input-group-btn">\n      <a\n        href="#"\n        class="btn btn-default"\n        onclick=', '\n      >\n        Dodaj\n      </a>\n    </div>\n  </div>']);
+	var _templateObject = _taggedTemplateLiteral(['\n  <div class="input-group">\n    <input\n      type="text"\n      class="form-control"\n      id="js-addNewCoffyBtn"\n      pattern="^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9][a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9- _.]{1,199}$"\n      oninput=', '\n      onkeydown=', '\n    >\n    <div class="input-group-btn">\n      <a\n        href="#"\n        class="btn btn-default"\n        onclick=', '\n      >\n        Dodaj\n      </a>\n    </div>\n  </div>'], ['\n  <div class="input-group">\n    <input\n      type="text"\n      class="form-control"\n      id="js-addNewCoffyBtn"\n      pattern="^[a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9][a-zA-ZżźćńółęąśŻŹĆĄŚĘŁÓŃ0-9- _\\.]{1,199}$"\n      oninput=', '\n      onkeydown=', '\n    >\n    <div class="input-group-btn">\n      <a\n        href="#"\n        class="btn btn-default"\n        onclick=', '\n      >\n        Dodaj\n      </a>\n    </div>\n  </div>']);
 
 	exports.default = function () {
 	  return (0, _bel2.default)(_templateObject, function (e) {
@@ -17212,10 +17211,10 @@
 	  value: true
 	});
 
-	var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <a\n        href="#"\n        class="btn btn-lg btn-primary"\n        onclick=', '\n      >\n        Mieszaj\n      </a>\n    </div>\n  '], ['\n    <div>\n      <a\n        href="#"\n        class="btn btn-lg btn-primary"\n        onclick=', '\n      >\n        Mieszaj\n      </a>\n    </div>\n  ']);
+	var _templateObject = _taggedTemplateLiteral(['\n    <div>\n      <a\n        href="#"\n        class="btn btn-lg btn-primary ', '"\n        onclick=', '\n      >\n        Mieszaj\n      </a>\n    </div>\n  '], ['\n    <div>\n      <a\n        href="#"\n        class="btn btn-lg btn-primary ', '"\n        onclick=', '\n      >\n        Mieszaj\n      </a>\n    </div>\n  ']);
 
 	exports.default = function () {
-	  return (0, _bel2.default)(_templateObject, function (e) {
+	  return (0, _bel2.default)(_templateObject, 4 >= _store2.default.getState().coffeeTypes.length ? 'disabled' : '', function (e) {
 	    e.preventDefault();
 	    grind();
 	  });
@@ -17241,38 +17240,60 @@
 
 	function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
+	//Return (n-1)! permutations of input - like seating people at a round table
+	function roundTable(input) {
+	  var permArr = [],
+	      usedChars = [];
+
+	  //Return permutation of input
+	  function permute(input) {
+	    var i, ch;
+	    for (i = 0; i < input.length; i++) {
+	      ch = input.splice(i, 1)[0];
+	      usedChars.push(ch);
+	      if (input.length == 0) {
+	        permArr.push(usedChars.slice());
+	      }
+	      permute(input);
+	      input.splice(i, 0, ch);
+	      usedChars.pop();
+	    }
+	    return permArr;
+	  };
+
+	  var newInput = permute(input);
+
+	  var firstItem = newInput[0][0].id;
+	  var result = newInput.filter(function (item) {
+	    return item[0].id === firstItem;
+	  });
+	  return result;
+	}
+
 	function grind() {
 	  var oldCoffeeTypesOrder = _store2.default.getState().coffeeTypes;
-	  var archOrder = _store2.default.getState().shuffleArch;
-
-	  //TODO porownanie parami: a z b, b z c itd.
-	  if (1 < oldCoffeeTypesOrder.length) {
+	  //Min 5 items on the list -> we are checking last 10 orders -> (n-1)! -> (5-1)! = 24, (4-1)! = 6 <- too little
+	  ///wiebierz 1 losowo i sparwdz czy nie bylo takiej w ostatnich 10 ruchach (dla n >= 5, gdyz wtedy (n-1)! = 24)
+	  if (4 < oldCoffeeTypesOrder.length) {
 	    (function () {
-	      var newCoffeeTypesOrder = void 0;
-	      var newCoffeeTypesOrderIds = void 0;
+	      var archOrder = _store2.default.getState().shuffleArch;
+	      var permutations = roundTable(oldCoffeeTypesOrder);
+	      var newPick = void 0;
 	      var newOrder = void 0;
 	      do {
 	        newOrder = true;
-	        newCoffeeTypesOrder = _lodash2.default.shuffle(oldCoffeeTypesOrder);
-	        newCoffeeTypesOrderIds = newCoffeeTypesOrder.map(function (item) {
-	          return { id: item.id };
-	        });
+	        newPick = _lodash2.default.sample(permutations);
 	        archOrder.map(function (item, index) {
-	          var itemIds = item.map(function (item) {
-	            return { id: item.id };
-	          });
-	          if (_lodash2.default.isEqual(itemIds, newCoffeeTypesOrderIds)) {
-	            console.log(item, newCoffeeTypesOrder);
+	          if (_lodash2.default.isEqual(item, newPick)) {
 	            newOrder = false;
 	          }
 	        });
 	      } while (!newOrder);
-	      console.log('FINISH');
 	      //Save shuffle order to firebase
-	      _data2.default.addShuffleItem(newCoffeeTypesOrder);
+	      _data2.default.addShuffleItem(newPick);
 	      (0, _store2.default)({
 	        type: 'shuffle',
-	        payload: newCoffeeTypesOrder
+	        payload: newPick
 	      });
 	    })();
 	  }

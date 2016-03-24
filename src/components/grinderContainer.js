@@ -21,10 +21,12 @@ store.on('editCoffee', function(action, state, oldState){
 store.on('newCoffeeType:add', function(action, state, oldState){
   update(inputAddCoffeeDOM, inputAddCoffee());
   update(listCoffeeItemsDOM, listCoffeeItems());
+  update(btnGrindDOM, btnGrind());
 });
 
 store.on('coffeeTypes:remove', function(action, state, oldState){
   update(listCoffeeItemsDOM, listCoffeeItems());
+  update(btnGrindDOM, btnGrind());
 });
 
 store.on('shuffle', function(action, state, oldState){
@@ -33,6 +35,7 @@ store.on('shuffle', function(action, state, oldState){
 
 store.on('data:getAll', function(action, state, oldState){
   update(listCoffeeItemsDOM, listCoffeeItems());
+  update(btnGrindDOM, btnGrind());
 });
 
 
